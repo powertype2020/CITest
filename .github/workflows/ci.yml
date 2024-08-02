@@ -5,18 +5,27 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+
+      - name: Build and test
+        run: |
+          xcodebuild -workspace Office.xcworkspace \
+                      -scheme Office \
+                      -sdk iphonesimulator \
+                      -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' \
+                      clean build test
