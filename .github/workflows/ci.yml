@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and test
         run: |
-          xcodebuild -workspace Office.xcworkspace \
+          xcodebuild -workspace Office.xcodeproj \
                       -scheme Office \
                       -sdk iphonesimulator \
                       -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' \
