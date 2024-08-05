@@ -20,5 +20,8 @@ jobs:
     - name: Build
       run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
-    - name: Run tests
-      run: xcodebuild test -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+    - name: Run unit tests
+      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
+
+    - name: Run UI tests
+      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
