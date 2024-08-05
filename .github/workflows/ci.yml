@@ -18,7 +18,7 @@ jobs:
       run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
     - name: Build
-      run: xcodebuild -project CITest.xcodeproj -scheme CITest build
+      run: xcodebuild -project CITest.xcodeproj -scheme CODE_SIGNING_ALLOWED=NO CITest build
 
     - name: Run tests
-      run: xcodebuild -project CITest.xcodeproj -scheme CITest test
+      run: xcodebuild -project CITest.xcodeproj -scheme CODE_SIGNING_ALLOWED=NO CITest test
