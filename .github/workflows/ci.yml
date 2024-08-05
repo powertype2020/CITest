@@ -18,7 +18,7 @@ jobs:
       run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
     - name: Build
-      run: xcodebuild CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
     - name: Run tests
-      run: xcodebuild CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
+      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
