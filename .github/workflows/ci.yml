@@ -2,9 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: 
+    - master
+  pull_request: 
+    branches:
+     - master
+
+env: 
+ DEVELOPER_DIR: /Applications/Xcode_15.0.app/Contents/Developer
 
 jobs:
   build:
@@ -14,14 +19,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Xcode
-      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-
-    - name: Build
+    - name: Xcode Build
       run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
-    - name: Run unit tests
-      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
-
-    - name: Run UI tests
+    - name: Xcode Test
       run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
