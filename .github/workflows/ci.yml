@@ -23,4 +23,4 @@ jobs:
       run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
     - name: Xcode Test
-      run: xcodebuild -project CITest.xcodeproj -scheme CITest CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
+      run: xcodebuild -project CITest.xcodeproj -scheme CITest -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
