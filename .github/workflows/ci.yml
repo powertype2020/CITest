@@ -18,7 +18,7 @@ jobs:
       run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
     - name: Build
-      run: xcodebuild -project CITest.xcodeproj -scheme CODE_SIGNING_ALLOWED=NO CITest build
+      run: xcodebuild -project ProjectDirectory/CITest.xcodeproj -scheme CITest -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
     - name: Run tests
-      run: xcodebuild -project CITest.xcodeproj -scheme CODE_SIGNING_ALLOWED=NO CITest test
+      run: xcodebuild -project ProjectDirectory/CITest.xcodeproj -scheme CITest -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test
