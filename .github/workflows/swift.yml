@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: xcodebuild　build
+      run: swift build
     - name: Run tests
-      run: xcodebuild test
+      run: swift test
