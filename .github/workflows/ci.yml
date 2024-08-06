@@ -9,23 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.7'
-
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
-
-    - name: Install Cocoapods
-      run: |
-        brew install cocoapods
-        pod install
-
     - name: Build app
-      run: bundle exec fastlane build
+      run: fastlane build
 
     - name: Run tests
-      run: bundle exec fastlane test
+      run: fastlane test
