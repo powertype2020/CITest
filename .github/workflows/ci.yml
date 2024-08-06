@@ -1,52 +1,16 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Set up Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.0.app
+    - name: Build app
+      run: bundle exec fastlane build
 
-      - name: Decode certificate and provisioning profile
-        run: |
-          echo $APPLE_CERTIFICATE | base64 --decode > apple_cert.p12
-          echo $APPLE_PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
-
-      - name: Install certificate
-        env:
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }} # 必要ならば証明書のパスワードを設定
-        run: |
-          security create-keychain -p "actions" build.keychain
-          security import apple_cert.p12 -k build.keychain -P "$CERT_PASSWORD" -T /usr/bin/codesign
-          security list-keychains -d user -s build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p "actions" build.keychain
-          security set-key-partition-list -S apple-tool:,apple: -s -k "actions" build.keychain
-
-      - name: Install provisioning profile
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-
-      - name: Resolve SPM dependencies
-        run: xcodebuild -resolvePackageDependencies -project CITest.xcodeproj
-
-      - name: Build and test
-        run: |
-          xcodebuild -project CITest.xcodeproj \
-                     -scheme CITest \
-                     -sdk iphonesimulator \
-                     -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.4' \
-                     clean test | xcpretty
+    - name: Run tests
+      run: bundle exec fastlane test
